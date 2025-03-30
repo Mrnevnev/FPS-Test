@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
         //Handling jumping
         //
 
-        if (jumpAction.action.WasPressedThisFrame())
+        if (jumpAction.action.WasPressedThisFrame() && charCon.isGrounded == true)
         {
             _currentMovement.y = jumpPower;
         }
@@ -139,9 +139,14 @@ public class PlayerController : MonoBehaviour
         theCam.transform.localRotation = Quaternion.Euler(_rotStore.y, 0f,0f );
 
 
-        if (shootAction.action.IsPressed())
+        if (shootAction.action.WasPressedThisFrame())
         {
             weaponCon.Shoot();
+        }
+
+        if (shootAction.action.IsPressed())
+        {
+            weaponCon.ShootHold();
         }
         
     }
