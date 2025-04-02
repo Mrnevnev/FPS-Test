@@ -22,10 +22,21 @@ public class WeaponsController : MonoBehaviour
     public float timeBetweenShots;
 
     private float _shotCounter;
+
+    public int currentAmmo = 100;
+
+    public int clipSize = 20;
+
+    public int remainingAmmo = 300;
+
+    private UIController UIcon;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        UIcon = FindFirstObjectByType<UIController>();
         
+        Reload();
     }
 
     // Update is called once per frame
@@ -46,39 +57,68 @@ public class WeaponsController : MonoBehaviour
 
     public void Shoot()
     {
-       //Debug.Log("I shot");
-        
-       
-       RaycastHit hit;
-       if (Physics.Raycast(cam.position, cam.forward, out hit, range, validLayers ))
-       {
-           Debug.Log(hit.transform.name );
+        if (currentAmmo > 0)
+        {
 
-           if (hit.transform.tag == "Enemy")
-           {
-               Instantiate(damageEffect, hit.point, Quaternion.identity);
-           }
-           else
-           {
-                Instantiate(impactEffect, hit.point, Quaternion.identity);
-           }
-           
-       }
-       
-       muzzleFlare.SetActive(true);
-       _flareCounter = flareDisplayTime;
 
-       _shotCounter = timeBetweenShots;
+            //Debug.Log("I shot");
+
+
+            RaycastHit hit;
+            if (Physics.Raycast(cam.position, cam.forward, out hit, range, validLayers))
+            {
+                Debug.Log(hit.transform.name);
+
+                if (hit.transform.tag == "Enemy")
+                {
+                    Instantiate(damageEffect, hit.point, Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(impactEffect, hit.point, Quaternion.identity);
+                }
+
+            }
+
+            muzzleFlare.SetActive(true);
+            _flareCounter = flareDisplayTime;
+
+            _shotCounter = timeBetweenShots;
+
+            currentAmmo--;
+            
+            UIcon.UpdateAmmoText(currentAmmo, remainingAmmo);
+        }
 
     }
 
     public void ShootHold()
-    {
-        _shotCounter -= Time.deltaTime;
-        if (_shotCounter <= 0)
         {
-            Shoot();
+            _shotCounter -= Time.deltaTime;
+            if (_shotCounter <= 0)
+            {
+                Shoot();
+            }
         }
+
+    public void Reload()
+    {
+        remainingAmmo += currentAmmo;
+        //Debug.Log("Reloading");
+
+        if (remainingAmmo >= clipSize)
+        {
+            
+            currentAmmo = clipSize;
+            remainingAmmo -= clipSize;
+        }
+        else
+        {
+
+            currentAmmo = remainingAmmo;
+            remainingAmmo = 0;
+        }
+        
+        UIcon.UpdateAmmoText(currentAmmo, remainingAmmo);
     }
-    
 }

@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
     public WeaponsController weaponCon;
 
     public InputActionReference shootAction;
+
+    public InputActionReference reloadAction;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -148,6 +150,10 @@ public class PlayerController : MonoBehaviour
         {
             weaponCon.ShootHold();
         }
-        
+
+        if (reloadAction.action.WasPressedThisFrame())
+        {
+            weaponCon.Reload();
+        }
     }
 }
