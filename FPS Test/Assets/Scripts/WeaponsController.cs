@@ -30,6 +30,8 @@ public class WeaponsController : MonoBehaviour
     public int remainingAmmo = 300;
 
     private UIController UIcon;
+
+    public int ammoPickupAmount;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -119,6 +121,14 @@ public class WeaponsController : MonoBehaviour
             remainingAmmo = 0;
         }
         
+        UIcon.UpdateAmmoText(currentAmmo, remainingAmmo);
+    }
+
+    public void GetAmmo()
+    {
+        //Debug.Log("give me ammo");
+
+        remainingAmmo += ammoPickupAmount;
         UIcon.UpdateAmmoText(currentAmmo, remainingAmmo);
     }
 }
