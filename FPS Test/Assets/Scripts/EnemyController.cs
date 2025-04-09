@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour
     public float chaseRange = 15f, stopChasingRange = 5f;
 
     private float strafeAmount;
+
+    public Animator anim;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,18 +40,20 @@ public class EnemyController : MonoBehaviour
             {
                 rb.linearVelocity = (transform.forward + (transform.right * strafeAmount)) * moveSpeed;
                 
-            }
-            else
+                anim.SetBool("Moving", true);
+                
+            }else
             {
                 rb.linearVelocity = Vector3.zero;
+                
+                anim.SetBool("Moving", false);
             }
-        }
-        else
+        }else
         {
             rb.linearVelocity = Vector3.zero;
+            
+            anim.SetBool("Moving", false);
         }
-        
-        
         
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, yStore, rb.linearVelocity.z);
     }

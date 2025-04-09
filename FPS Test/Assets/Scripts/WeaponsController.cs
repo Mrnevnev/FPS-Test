@@ -69,7 +69,7 @@ public class WeaponsController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(cam.position, cam.forward, out hit, range, validLayers))
             {
-                Debug.Log(hit.transform.name);
+                //Debug.Log(hit.transform.name);
 
                 if (hit.transform.tag == "Enemy")
                 {
