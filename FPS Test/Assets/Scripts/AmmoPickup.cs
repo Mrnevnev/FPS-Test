@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class AmmoPickup : MonoBehaviour
 {
+    public int bounceTime = 10;
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -11,5 +12,13 @@ public class AmmoPickup : MonoBehaviour
             
             Destroy(gameObject);
         }
+    }
+
+
+
+    void Update()
+    {
+        transform.Rotate(0f, 0f, 90f * Time.deltaTime);
+        
     }
 }
