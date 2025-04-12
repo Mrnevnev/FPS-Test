@@ -32,6 +32,8 @@ public class WeaponsController : MonoBehaviour
     private UIController UIcon;
 
     public int ammoPickupAmount;
+
+    public float damageAmount = 15f;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -74,6 +76,8 @@ public class WeaponsController : MonoBehaviour
                 if (hit.transform.tag == "Enemy")
                 {
                     Instantiate(damageEffect, hit.point, Quaternion.identity);
+
+                    hit.transform.GetComponent<EnemyController>().TakeDamage(damageAmount);
                 }
                 else
                 {
