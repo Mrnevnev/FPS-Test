@@ -33,6 +33,16 @@ public class EnemyController : MonoBehaviour
     public float currentHealth = 25f;
 
     public float waitToDisappear = 4f;
+
+    public Transform shootPoint;
+    
+    public EnemyProjectile projectile;
+    
+    public float timeBetweenShots;
+
+    private float _shotCounter;
+
+    public float shotDamage;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,6 +54,8 @@ public class EnemyController : MonoBehaviour
        pointsHolder.SetParent(null);
 
        _waitCounter = Random.Range(.75f, 1.25f) * pointWaitTime;
+       
+       _shotCounter = timeBetweenShots;
     }
 
     // Update is called once per frame
@@ -87,6 +99,18 @@ public class EnemyController : MonoBehaviour
                 rb.linearVelocity = Vector3.zero;
                 
                 anim.SetBool("Moving", false);
+            }
+            
+            _shotCounter -= Time.deltaTime;
+            if (_shotCounter < 0)
+            {
+                shootPoint.LookAt(_player.theCam.transform.position);
+                
+                EnemyProjectile newProjectile = Instantiate(projectile, shootPoint.position, shootPoint.rotation);
+
+                newProjectile.damageAmount = shotDamage;
+                
+                _shotCounter = timeBetweenShots;
             }
             
         }else
