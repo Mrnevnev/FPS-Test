@@ -2383,7 +2383,7 @@ PrefabInstance:
     - target: {fileID: 8331054742012744187, guid: 5dff5797d67bfd145b3c65e637721124, type: 3}
       propertyPath: projectile
       value: 
-      objectReference: {fileID: 8629136559463887355, guid: d83b8d6cedfa830438067a634b33e7ad, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 8331054742012744187, guid: 5dff5797d67bfd145b3c65e637721124, type: 3}
       propertyPath: shootPoint
       value: 
